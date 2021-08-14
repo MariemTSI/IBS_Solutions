@@ -3,7 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Threading.Tasks;
+using System.Threading.Tasks; 
+using Tsi.Template.Core;
 using Tsi.Template.Core.Abstractions;
 using Tsi.Template.Core.Events;
 using Tsi.Template.Infrastructure.Data;
@@ -14,18 +15,29 @@ namespace Tsi.Template.Infrastructure.Repository
     {
 
         private readonly DbSet<T> dbset;
-        private readonly ApplicationContext _context;
-        private readonly IEventPublisher _eventPublisher;
+        private readonly CoreContext _context;
+        private readonly IEventPublisher _eventPublisher; 
 
         public Repository(IDatabaseFactory dbFactory, IEventPublisher eventPublisher)
         {
             _context = dbFactory.DataContext;
             dbset = _context.Set<T>();
-            _eventPublisher = eventPublisher;
+            _eventPublisher = eventPublisher; 
         }
 
         public async Task<T> AddAsync(T entity)
         {
+            if (entity is ITraceable traceable)
+            {
+                var _userAuthenticationService = EngineContext.Current.Resolve<IUserAuthenticationService>();
+
+                if(_userAuthenticationService is not null)
+                {
+                    traceable.CreatedAt = DateTime.Now;
+                    traceable.CreatedBy = (await _userAuthenticationService.GetAuthenticatedUserAsync())?.Description ?? "";
+                } 
+            }
+
             var InsertResult = await dbset.AddAsync(entity);
 
             await _context.SaveChangesAsync();
@@ -106,6 +118,17 @@ namespace Tsi.Template.Infrastructure.Repository
 
         public async Task<int> UpdateAsync(T entity)
         {
+            if (entity is ITraceable traceable)
+            {
+                var _userAuthenticationService = EngineContext.Current.Resolve<IUserAuthenticationService>();
+
+                if (_userAuthenticationService is not null)
+                {
+                    traceable.UpdatedAt = DateTime.Now;
+                    traceable.UpdatedBy = (await _userAuthenticationService.GetAuthenticatedUserAsync())?.Description ?? "";
+                }
+            } 
+
             dbset.Update(entity);
 
             var result = await _context.CommitAsync();
@@ -184,7 +207,6 @@ namespace Tsi.Template.Infrastructure.Repository
             {
                 Query = Query.Include(include);
             }
-            
 
             return Task.FromResult(Query.AsEnumerable());
         }

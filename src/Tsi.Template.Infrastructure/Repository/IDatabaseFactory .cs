@@ -6,6 +6,6 @@ namespace Tsi.Template.Infrastructure.Repository
 {
     public interface IDatabaseFactory : IDisposable
     {
-        ApplicationContext DataContext { get; }
+        CoreContext DataContext { get; }
     } 
 }

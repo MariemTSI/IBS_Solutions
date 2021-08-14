@@ -1,12 +1,13 @@
-﻿@using Tsi.Template.Abstraction.Common;
-@using Tsi.Template.Domain.Defaults;
+﻿@using Tsi.Template.Core;
+@using Tsi.Template.Core.Entities;
+@using Tsi.Template.Core.Defaults;
 
 @inject IUserRegistrationService _userRegistrationService;
 @inject IUserService _userService;
 @inject IPermissionService _permissionService;
 
 @{  
-    var currentUser = await _userRegistrationService.GetCurrentUserAsync();
+    var currentUser = await _userRegistrationService.GetAuthenticatedUserAsync();
 
     if(currentUser is not null)
     {

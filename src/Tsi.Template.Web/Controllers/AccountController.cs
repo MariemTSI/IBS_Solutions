@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using Tsi.Template.Abstraction.Common;
+using Tsi.Template.Core;
 using Tsi.Template.Core.Configuration;
-using Tsi.Template.Domain.Common;
-using Tsi.Template.ViewModels.Common;
+using Tsi.Template.Core.Entities;
+using Tsi.Template.Core.Models; 
 using Tsi.Template.Web.Factories.Common;
 
 namespace Tsi.Template.Web.Controllers
@@ -69,7 +69,7 @@ namespace Tsi.Template.Web.Controllers
                         user = await _userService.GetUserByEmailAsync(model.Email);
                     } 
                     
-                    await _userRegistrationService.SignInUserAsync(user);
+                    await _userRegistrationService.SignInAsync(user, model.RememberMe);
 
                     if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
                     {
@@ -143,7 +143,7 @@ namespace Tsi.Template.Web.Controllers
                         {
                             user = await _userService.GetUserByEmailAsync(model.Email);
                         } 
-                        await _userRegistrationService.SignInUserAsync(user);
+                        await _userRegistrationService.SignInAsync(user, false);
                         return RedirectToAction("Index", "Home");
                     }  
             } 

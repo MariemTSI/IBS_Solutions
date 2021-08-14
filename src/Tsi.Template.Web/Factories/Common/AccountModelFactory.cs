@@ -1,9 +1,9 @@
-﻿ 
+﻿
 using System.Threading.Tasks;
-using Tsi.Template.Abstraction.Common;
+using Tsi.Template.Core;
 using Tsi.Template.Core.Attributes;
 using Tsi.Template.Core.Configuration;
-using Tsi.Template.ViewModels.Common;
+using Tsi.Template.Core.Models; 
 
 namespace Tsi.Template.Web.Factories.Common
 {

@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Tsi.Template.Abstraction.Common;
+using System.Threading.Tasks; 
 using Tsi.Template.Core;
 using Tsi.Template.Core.Attributes;
 using Tsi.Template.Core.Enums;
@@ -30,7 +29,7 @@ namespace SageClient.Core.Factories.SideBar
                 await BuildGrhNavigationItemsAsync(selectedTab)
             };
 
-            if (await _userService.IsUserAdminAsync(await _userRegistrationService.GetCurrentUserAsync()))
+            if (await _userService.IsUserAdminAsync(await _userRegistrationService.GetAuthenticatedUserAsync()))
             {
                 result.Add(await BuildAdministrationNavigationItemsAsync(selectedTab));
             }

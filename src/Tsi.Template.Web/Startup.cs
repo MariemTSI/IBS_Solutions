@@ -2,8 +2,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Tsi.Template.Web.Extensions;
+using Tsi.Template.Web.Installers;
 
 namespace Tsi.Template.Web
 {
@@ -19,7 +19,9 @@ namespace Tsi.Template.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.ConfigureApplicationServices(Configuration); 
+            //services.ConfigureApplicationServices(Configuration); 
+
+            services.ConfigureApplicationServices(Configuration, AssemblyLoader.LoadAssemblies);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

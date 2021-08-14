@@ -20,8 +20,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Tsi.Template.CoreServices\Tsi.Template.CoreServices.csproj" />
     <ProjectReference Include="..\Tsi.Template.Core\Tsi.Template.Core.csproj" />
+    <ProjectReference Include="..\Tsi.Template.Data\Tsi.Template.Data.csproj" />
     <ProjectReference Include="..\Tsi.Template.Domain\Tsi.Template.Domain.csproj" />
+    <ProjectReference Include="..\Tsi.Template.Framework\Tsi.Template.Framework.csproj" />
     <ProjectReference Include="..\Tsi.Template.Helpers\Tsi.Template.Helpers.csproj" />
     <ProjectReference Include="..\Tsi.Template.Services\Tsi.Template.Services.csproj" />
     <ProjectReference Include="..\Tsi.Template.Validation\Tsi.Template.Validation.csproj" />
