@@ -7,7 +7,7 @@ namespace Tsi.Template.CoreServices.Localization
     [Injectable(typeof(ILocalizationService))]
     public class LocalizationService : ILocalizationService
     {
-        public Task<string> LoadResource(string key)
+        public Task<string> GetResourceAsync(string key)
         {
             return Task.FromResult($"{key} - this message comes from the implemented localization service");
         }

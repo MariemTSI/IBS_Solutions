@@ -23,6 +23,9 @@ namespace Tsi.Template.Services.Common
         private readonly ISettingService _settingService;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
+
+        private User _cachedUser;
+
         #endregion
 
         #region Ctor
@@ -52,6 +55,11 @@ namespace Tsi.Template.Services.Common
 
         public async Task<User> GetAuthenticatedUserAsync()
         {
+            if(_cachedUser is not null)
+            {
+                return _cachedUser;
+            }
+
             var claims = _httpContextAccessor.HttpContext?.User?.Claims ?? null;
 
             if (claims is null || !claims.Any())
@@ -70,10 +78,11 @@ namespace Tsi.Template.Services.Common
 
             if(Int32.TryParse(userSidClaim.Value, out var id))
             {
-                return await _userService.GetUserByIdAsync(id);
+                var result = await _userService.GetUserByIdAsync(id);
+                _cachedUser = result;
             }
 
-            return null;
+            return _cachedUser;
         }
 
         public async Task SignInAsync(User user, bool isPersistent)
@@ -105,6 +114,7 @@ namespace Tsi.Template.Services.Common
 
         public async Task SignOutAsync()
         {
+            _cachedUser = null;
             await _httpContextAccessor.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
         }
 

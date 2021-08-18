@@ -1,6 +1,7 @@
-﻿@using Tsi.Template.Core;
-@inject IUserService _userService
+﻿@using Tsi.Template.Core; 
+
 @inject IUserRegistrationService _userRegistrationService;
+@inject IWebHostEnvironment env;
 
 @{
     var user = await _userRegistrationService.GetAuthenticatedUserAsync();
@@ -30,50 +31,17 @@
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <!-- Add icons to the links using the .nav-icon class
-    with font-awesome or any other icon font library -->
-                <li class="nav-item)">
-                    <a class="nav-link">
-                        <i class="fas  nav-icon"></i>
-                        <p>Users</p>
-                        <i class="right fas fa-angle-left"></i>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item ">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Users List</p>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Users Roles</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item)">
-                    <a class="nav-link">
-                        <i class="fas  nav-icon"></i>
-                        <p>Settings</p>
-                        <i class="right fas fa-angle-left"></i>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item ">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>User Settings</p>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Application Settings</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+
+                @{ 
+                    var filePath = System.IO.Path.Combine(env.WebRootPath, "..", "AppData", "AdminSiteMap.json");
+                    var rootNode = Tsi.Template.Core.Helpers.JsonHelper<Tsi.Template.Framework.Menu.Root>.Deserialize(filePath);
+
+                    foreach (var item in rootNode.siteMap.siteMapNode.siteMapNode)
+                    {
+                        @await Html.PartialAsync("_MenuItem", item)
+                    }
+
+                }  
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

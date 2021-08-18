@@ -1,0 +1,27 @@
+﻿@model SiteMapNode;
+
+@using Tsi.Template.Core;
+@using Tsi.Template.Framework.Menu;
+
+<li>
+    <a href="#" class="nav-link">
+        <text>
+            <i class="nav-icon @Model.IconClass"></i>
+        </text>
+        <p>
+            @Model.TsiResource
+            <i class="right fas fa-angle-left"></i>
+
+            @T("Admin.Home")
+        </p>
+    </a>
+    @if (Model is not null && Model.siteMapNode is not null && Model.siteMapNode.Any())
+    { 
+        <ul class="nav nav-treeview">
+            @foreach (var childItem in Model.siteMapNode)
+            {
+                @await Html.PartialAsync("_MenuItem", childItem)
+            }
+        </ul>
+    }
+</li> 

@@ -4,6 +4,6 @@ namespace Tsi.Template.Core
 {
     public interface ILocalizationService
     {
-        Task<string> LoadResource(string key);
+        Task<string> GetResourceAsync(string key);
     }
 }
