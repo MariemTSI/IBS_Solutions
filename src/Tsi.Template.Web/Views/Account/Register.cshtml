@@ -1,73 +1,130 @@
-﻿@using Tsi.Template.ViewModels.Common;
+﻿@using Tsi.Template.Core.Models;
 @model UserRegisterModel;
 
 @{
-    Layout = "_LoginLayout";
+    Layout = null;
 }
 
-<h2>Login</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TSI Erp | Create Account</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="../../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+</head>
+<body class="hold-transition register-page">
+    <div class="register-box">
+        <div class="register-logo">
+        </div>
 
-<div class="card">
-    <div class="card-body">
-        <form asp-controller="Account" asp-action="Register" method="post">
+        <div class="card">
+            <div class="card-body register-card-body">
+                <p class="login-box-msg">Register a new account</p>
 
-            <div class="form-group">
-                @Html.DisplayNameFor(model => model.FirstName)
-                <input type="text" id="FirstName" name="FirstName" class="form-control" value="@Model.FirstName" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
+                <form asp-controller="Account" asp-action="Register" method="post">
+
+                    <div class="input-group mb-3">
+                        <input type="text" id="FirstName" name="FirstName" placeholder="Firstname" class="form-control" value="@Model.FirstName" />
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-user"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" id="LastName" name="LastName" placeholder="Lastname" class="form-control" value="@Model.LastName" />
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-user"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    @if (Model.UserNameEnabled)
+                    {
+                        <div class="input-group mb-3">
+                            <input type="text" id="Username" name="Username" placeholder="Username" class="form-control" value="@Model.Username" />
+                            <span asp-validation-for="Username" class="text-danger"></span>
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-user"></span>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="input-group mb-3">
+                            <input type="text" id="Email" name="Email" class="form-control" placeholder="Email" value="@Model.Email" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-envelope"></span>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    <div class="input-group mb-3">
+                        <input type="text" id="PhoneNumber" name="PhoneNumber" placeholder="Phone" class="form-control" value="@Model.PhoneNumber">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-phone"></span>
+                            </div>
+                        </div>
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <input type="password" id="Password" name="Password" placeholder="Password" class="form-control" value="@Model.Password">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="input-group mb-3">
+                        <input type="password" id="ConfirmPassword" name="ConfirmPassword" placeholder="Confirm Password" class="form-control" value="@Model.ConfirmPassword">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="icheck-primary">
+                                <input type="checkbox" id="agreeTerms" name="terms" value="agree">
+                                <label for="agreeTerms">
+                                    I agree to the <a href="#">terms</a>
+                                </label>
+                            </div>
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-4">
+                            <button type="submit" class="btn btn-primary btn-block">Register</button>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                     
+                    @Html.ActionLink("I already have an account", "Login", "Account")
+                </form>
             </div>
-
-            <div class="form-group">
-                @Html.DisplayNameFor(model => model.LastName)
-                <input type="text" id="LastName" name="LastName" class="form-control" value="@Model.LastName" />
-                <span asp-validation-for="LastName" class="text-danger"></span>
-            </div>
-
-            @if (Model.UserNameEnabled)
-            {
-                <div class="form-group">
-                    @Html.DisplayNameFor(model => model.Username)
-                    <input type="text" id="Username" name="Username" class="form-control" value="@Model.Username" />
-                    <span asp-validation-for="Username" class="text-danger"></span>
-                </div>
-            }
-            else
-            {
-                <div class="form-group">
-                    @Html.DisplayNameFor(model => model.Email)
-                    <input type="text" id="Email" name="Email" class="form-control" value="@Model.Email" />
-                    <span asp-validation-for="Email" class="text-danger"></span>
-                </div>
-            }
-
-            <div class="form-group">
-                @Html.DisplayNameFor(model => model.PhoneNumber)
-                <input type="text" id="PhoneNumber" name="PhoneNumber" class="form-control" value="@Model.PhoneNumber" />
-                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-            </div>
-
-
-
-            <div class="form-group">
-                @Html.DisplayNameFor(model => model.Password)
-                <input type="password" id="Password" name="Password" class="form-control" value="@Model.Password" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                @Html.DisplayNameFor(model => model.ConfirmPassword)
-                <input type="password" id="ConfirmPassword" name="ConfirmPassword" class="form-control" value="@Model.ConfirmPassword" />
-                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <div asp-validation-summary="All" class="text-danger"></div>
-            </div>
-
-            <div class="form-group text-center">
-                <button type="submit" name="save" class="btn btn-primary col-md-3">
-                    <i class="far fa-save"></i> Login
-                </button>
-            </div>
-        </form>
+        </div>
     </div>
-</div>
+    <script src="../../plugins/jquery/jquery.min.js"></script>
+    <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../dist/js/adminlte.min.js"></script>
+</body>
+</html>

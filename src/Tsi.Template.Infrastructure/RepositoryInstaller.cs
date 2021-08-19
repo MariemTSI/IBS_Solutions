@@ -12,7 +12,7 @@ namespace Tsi.Template.Infrastructure
 
         public void Install(IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<ApplicationContext>();
+           
 
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped(typeof(IDatabaseFactory), typeof(DatabaseFactory));

@@ -10,6 +10,7 @@ namespace Tsi.Template.Core.Enums
     {
         NotFound,
         WrongPassword,
+        PasswordExpired,
         LockedOut,
         NotActive,
         Success

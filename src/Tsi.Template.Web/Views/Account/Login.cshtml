@@ -1,8 +1,7 @@
-﻿@using Tsi.Template.ViewModels.Common;
+﻿@using Tsi.Template.Core.Models;
 @model LoginModel;
 
-@{ 
-    var returnUrl = @Context.Request.Query["returnUrl"];
+@{  
     Layout = null;
 }
 
@@ -39,8 +38,8 @@
 
                     @if (Model.UserNameEnabled)
                     {
-                        <div class="input-group mb-3"> 
-                            <input type="text" id="Username" name="Username" placeholder="Username"  class="form-control" value="@Model.Username" />
+                        <div class="input-group mb-3">
+                            <input type="text" id="Username" name="Username" placeholder="Username" class="form-control" value="@Model.Username" />
                             <span asp-validation-for="Username" class="text-danger"></span>
                             <div class="input-group-append">
                                 <div class="input-group-text">
@@ -51,15 +50,15 @@
                     }
                     else
                     {
-                        <div class="input-group mb-3"> 
-                            <input type="text" id="Email" name="Email" placeholder="Email"  class="form-control" value="@Model.Email" />
+                        <div class="input-group mb-3">
+                            <input type="text" id="Email" name="Email" placeholder="Email" class="form-control" value="@Model.Email" />
                             <span asp-validation-for="Email" class="text-danger"></span>
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                     <span class="fas fa-envelope"></span>
                                 </div>
                             </div>
-                        </div> 
+                        </div>
                     }
                     <div class="input-group mb-3">
                         <input asp-for="Password" class="form-control" placeholder="Password" type="password" />
@@ -85,9 +84,13 @@
                         </div>
                         <!-- /.col -->
                     </div>
+
+                    <div class="row text-center">
+                        @Html.ActionLink("Create a new account", "Register", "Account")
+                    </div>
                 </form>
-            </div>
-            <!-- /.card-body -->
+            </div> 
+
         </div>
         <!-- /.card -->
     </div>

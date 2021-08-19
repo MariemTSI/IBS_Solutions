@@ -5,11 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Tsi.Template.Core\Tsi.Template.Core.csproj" />
+    <Compile Remove="Logging\**" />
+    <EmbeddedResource Remove="Logging\**" />
+    <None Remove="Logging\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Logging\" />
+    <ProjectReference Include="..\Tsi.Template.Core\Tsi.Template.Core.csproj" />
   </ItemGroup>
 
 </Project>

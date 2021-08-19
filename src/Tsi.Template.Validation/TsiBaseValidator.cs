@@ -20,7 +20,7 @@ namespace Tsi.Template.Validation
             {
                 return key;
             }
-            return _localizationService.LoadResource(key).GetAwaiter().GetResult();
+            return _localizationService.GetResourceAsync(key).GetAwaiter().GetResult();
         }
     }
 }
