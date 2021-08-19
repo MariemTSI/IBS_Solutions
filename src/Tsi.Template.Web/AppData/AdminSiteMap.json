@@ -17,7 +17,7 @@
         {
           "-SystemName": "Customers",
           "-tsiResource": "Admin.Customers",
-          "-PermissionNames": "ManageUsers, ManageActivityLog",
+          "-PermissionNames": "ManageUsers,ManageRoles",
           "-IconClass": "far fa-user",
           "siteMapNode": [
             {
@@ -32,7 +32,7 @@
             {
               "-SystemName": "Customer roles",
               "-tsiResource": "Admin.Users.Roles",
-              "-PermissionNames": "ManageCustomers",
+              "-PermissionNames": "ManageRoles",
               "-controller": "Users",
               "-action": "List",
               "-IconClass": "far fa-dot-circle",

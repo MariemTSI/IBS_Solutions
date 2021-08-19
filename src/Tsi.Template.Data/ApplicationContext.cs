@@ -19,6 +19,7 @@ namespace Tsi.Template.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // Ligne super importante => Pour la configuration des table de la plateforme
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationContext).Assembly);
