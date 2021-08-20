@@ -1,0 +1,101 @@
+﻿@using Tsi.Template.ViewModels;
+@model IEnumerable<ModePayementViewModel>
+
+@{ Layout = "~/Views/Shared/AdminLTE/_Layout.cshtml"; }
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="form-horizontal">
+            <div class="cards-group">
+                <div>
+                    <div class="icon-search">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Create">
+                            <i class="fas fa-plus-circle"></i>Create
+                        </a>
+                    </div>
+                </div>
+                <br />
+            </div>
+        </div>
+    </div>
+    <br />
+</section>
+
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Mode Payement List</h3>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <div class="col-sm-12">
+            <table id="example1" class="table table-bordered table-striped dataTable dtr-inline" role="grid" aria-describedby="example1_info">
+                <thead>
+                    <tr role="row">
+                        <th class="sorting sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="">#</th>
+                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="">Code</th>
+                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="">
+                            Libelle
+                        </th>
+                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="">Prix</th>
+                        <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="">Delete</th>
+                        <th tabindex="0" aria-controls="example1" rowspan="1" colspan="1" style="">Edit</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @{ int index = 0;}
+                    @foreach (ModePayementViewModel item in Model)
+                    {
+                        index++;
+                    <tr class="odd">
+                        <td class="" style="">@index</td>
+                        <td lass="sorting_1 dtr-control" tabindex="0" style="">@item.Code</td>
+                        <td class="" style="">@item.CodeSurDeclarationTVA</td>
+                        <td class="" style="">@item.Nom</td>
+                        <td class="" style="">@item.Observation</td>
+                        <td class="" style="">
+                            @Html.ActionLink("Delete", "Delete", "ModePayement", new { code = item.Id }, null)
+                        </td>
+                        <td class="" style="">
+                            @Html.ActionLink("Edit", "Edit", "Product", item, null)
+                        </td>
+                    </tr>}
+
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th rowspan="1" colspan="1" style="">#</th>
+                        <th rowspan="1" colspan="1" style="">Code</th>
+                        <th rowspan="1" colspan="1" style="">CodeSurDeclarationTVA</th>
+                        <th rowspan="1" colspan="1" style="">Nom</th>
+                        <th rowspan="1" colspan="1" style="">Observation</th> 
+                        <th rowspan="1" colspan="1" style="">Action</th>
+                        <th rowspan="1" colspan="1" style="">Action</th>
+                    </tr>
+
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts
+{
+    <script>$(function () {
+            $("#example1").DataTable({
+                "responsive": true, "lengthChange": false, "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+        });</script>
+}
