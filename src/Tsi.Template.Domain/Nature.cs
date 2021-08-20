@@ -5,12 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Tsi.Template.Core.Abstractions;
 
-namespace Tsi.Template.Domain.Grh
+namespace Tsi.Template.Domain
 {
-    public class Departement : BaseEntity
+    public class Nature : BaseEntity
     {
         public string Code { get; set; }
-        public string Libelle { get; set; }
-        public ICollection<Employee> Employees { get; set; }
+        public string Nom { get; set; }
+        public string CodeSurDeclaration { get; set; }
+        public string Observation { get; set; }
     }
 }

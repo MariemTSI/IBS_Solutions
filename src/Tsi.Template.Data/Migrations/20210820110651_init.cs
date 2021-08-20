@@ -3,39 +3,72 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Tsi.Template.Data.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "App_Departements",
+                name: "App_ModePayements",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Code = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
-                    Libelle = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Code = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: false),
+                    Nom = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    CodeSurDeclarationTVA = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: false),
+                    Observation = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_App_Departements", x => x.Id);
+                    table.PrimaryKey("PK_App_ModePayements", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "App_Products",
+                name: "App_Natures",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Code = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Libelle = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Deleted = table.Column<bool>(type: "bit", nullable: false),
-                    DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    Code = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: false),
+                    Nom = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    CodeSurDeclaration = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    Observation = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_App_Products", x => x.Id);
+                    table.PrimaryKey("PK_App_Natures", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "App_Pays",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Code = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: false),
+                    Nom = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    SymboleMonetaire = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: false),
+                    NbreDecimales = table.Column<int>(type: "int", nullable: false),
+                    Observation = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_App_Pays", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "App_SecteursActivites",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Code = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: false),
+                    Nom = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    Observation = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_App_SecteursActivites", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -120,23 +153,27 @@ namespace Tsi.Template.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "App_Employees",
+                name: "App_ExpertComptables",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Cin = table.Column<long>(type: "bigint", maxLength: 8, nullable: false),
-                    DepartementId = table.Column<int>(type: "int", nullable: false)
+                    PaysId = table.Column<int>(type: "int", nullable: false),
+                    Code = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: false),
+                    Nom = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    Adresse = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    ComplementAdresse = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    CP = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    Ville = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    Observation = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_App_Employees", x => x.Id);
+                    table.PrimaryKey("PK_App_ExpertComptables", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_App_Employees_App_Departements_DepartementId",
-                        column: x => x.DepartementId,
-                        principalTable: "App_Departements",
+                        name: "FK_App_ExpertComptables_App_Pays_PaysId",
+                        column: x => x.PaysId,
+                        principalTable: "App_Pays",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -219,6 +256,29 @@ namespace Tsi.Template.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "App_Societes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Code = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: false),
+                    Nom = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    IdentifiantFiscal = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    Observation = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    ExpertComptableId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_App_Societes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_App_Societes_App_ExpertComptables_ExpertComptableId",
+                        column: x => x.ExpertComptableId,
+                        principalTable: "App_ExpertComptables",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Common_UserPasswords",
                 columns: table => new
                 {
@@ -267,27 +327,92 @@ namespace Tsi.Template.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_App_Departements_Code",
-                table: "App_Departements",
+                name: "IX_App_ExpertComptables_Code",
+                table: "App_ExpertComptables",
                 column: "Code",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_App_Employees_Cin",
-                table: "App_Employees",
-                column: "Cin",
+                name: "IX_App_ExpertComptables_Nom",
+                table: "App_ExpertComptables",
+                column: "Nom",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_App_Employees_DepartementId",
-                table: "App_Employees",
-                column: "DepartementId");
+                name: "IX_App_ExpertComptables_PaysId",
+                table: "App_ExpertComptables",
+                column: "PaysId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_App_Products_Code",
-                table: "App_Products",
+                name: "IX_App_ModePayements_Code",
+                table: "App_ModePayements",
                 column: "Code",
-                filter: " Deleted = 1 ");
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_App_ModePayements_Nom",
+                table: "App_ModePayements",
+                column: "Nom",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_App_Natures_Code",
+                table: "App_Natures",
+                column: "Code",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_App_Natures_Nom",
+                table: "App_Natures",
+                column: "Nom",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_App_Pays_Code",
+                table: "App_Pays",
+                column: "Code",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_App_Pays_Nom",
+                table: "App_Pays",
+                column: "Nom",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_App_Pays_SymboleMonetaire",
+                table: "App_Pays",
+                column: "SymboleMonetaire",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_App_SecteursActivites_Code",
+                table: "App_SecteursActivites",
+                column: "Code",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_App_SecteursActivites_Nom",
+                table: "App_SecteursActivites",
+                column: "Nom",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_App_Societes_Code",
+                table: "App_Societes",
+                column: "Code",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_App_Societes_ExpertComptableId",
+                table: "App_Societes",
+                column: "ExpertComptableId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_App_Societes_IdentifiantFiscal",
+                table: "App_Societes",
+                column: "IdentifiantFiscal",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Common_Permissions_SystemName",
@@ -380,10 +505,16 @@ namespace Tsi.Template.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "App_Employees");
+                name: "App_ModePayements");
 
             migrationBuilder.DropTable(
-                name: "App_Products");
+                name: "App_Natures");
+
+            migrationBuilder.DropTable(
+                name: "App_SecteursActivites");
+
+            migrationBuilder.DropTable(
+                name: "App_Societes");
 
             migrationBuilder.DropTable(
                 name: "Common_Logs");
@@ -404,7 +535,7 @@ namespace Tsi.Template.Data.Migrations
                 name: "Common_UserRoleMappings");
 
             migrationBuilder.DropTable(
-                name: "App_Departements");
+                name: "App_ExpertComptables");
 
             migrationBuilder.DropTable(
                 name: "Common_Permissions");
@@ -414,6 +545,9 @@ namespace Tsi.Template.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Common_Users");
+
+            migrationBuilder.DropTable(
+                name: "App_Pays");
 
             migrationBuilder.DropTable(
                 name: "Common_Languages");

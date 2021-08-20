@@ -10,8 +10,8 @@ using Tsi.Template.Data;
 namespace Tsi.Template.Data.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20210814203706_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20210820110651_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -342,41 +342,63 @@ namespace Tsi.Template.Data.Migrations
                     b.ToTable("Common_UserRoleMappings");
                 });
 
-            modelBuilder.Entity("Tsi.Template.Domain.Gesc.Catalog.Product", b =>
+            modelBuilder.Entity("Tsi.Template.Domain.ExpertComptable", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Code")
+                    b.Property<string>("Adresse")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<bool>("Deleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("DeletedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Libelle")
+                    b.Property<string>("CP")
                         .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(3)
+                        .HasColumnType("nvarchar(3)");
+
+                    b.Property<string>("ComplementAdresse")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Nom")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<string>("Observation")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("PaysId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Ville")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("Code")
-                        .HasFilter(" Deleted = 1 ");
+                        .IsUnique();
 
-                    b.ToTable("App_Products");
+                    b.HasIndex("Nom")
+                        .IsUnique();
+
+                    b.HasIndex("PaysId");
+
+                    b.ToTable("App_ExpertComptables");
                 });
 
-            modelBuilder.Entity("Tsi.Template.Domain.Grh.Departement", b =>
+            modelBuilder.Entity("Tsi.Template.Domain.ModePayement", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -385,51 +407,186 @@ namespace Tsi.Template.Data.Migrations
 
                     b.Property<string>("Code")
                         .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
+                        .HasMaxLength(3)
+                        .HasColumnType("nvarchar(3)");
 
-                    b.Property<string>("Libelle")
+                    b.Property<string>("CodeSurDeclarationTVA")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(3)
+                        .HasColumnType("nvarchar(3)");
+
+                    b.Property<string>("Nom")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<string>("Observation")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("Code")
                         .IsUnique();
 
-                    b.ToTable("App_Departements");
+                    b.HasIndex("Nom")
+                        .IsUnique();
+
+                    b.ToTable("App_ModePayements");
                 });
 
-            modelBuilder.Entity("Tsi.Template.Domain.Grh.Employee", b =>
+            modelBuilder.Entity("Tsi.Template.Domain.Nature", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long>("Cin")
-                        .HasMaxLength(8)
-                        .HasColumnType("bigint");
-
-                    b.Property<int>("DepartementId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("FirstName")
+                    b.Property<string>("Code")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(3)
+                        .HasColumnType("nvarchar(3)");
 
-                    b.Property<string>("LastName")
+                    b.Property<string>("CodeSurDeclaration")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<string>("Nom")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<string>("Observation")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Cin")
+                    b.HasIndex("Code")
                         .IsUnique();
 
-                    b.HasIndex("DepartementId");
+                    b.HasIndex("Nom")
+                        .IsUnique();
 
-                    b.ToTable("App_Employees");
+                    b.ToTable("App_Natures");
+                });
+
+            modelBuilder.Entity("Tsi.Template.Domain.Pays", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(3)
+                        .HasColumnType("nvarchar(3)");
+
+                    b.Property<int>("NbreDecimales")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nom")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<string>("Observation")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("SymboleMonetaire")
+                        .IsRequired()
+                        .HasMaxLength(3)
+                        .HasColumnType("nvarchar(3)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
+
+                    b.HasIndex("Nom")
+                        .IsUnique();
+
+                    b.HasIndex("SymboleMonetaire")
+                        .IsUnique();
+
+                    b.ToTable("App_Pays");
+                });
+
+            modelBuilder.Entity("Tsi.Template.Domain.SecteursActivites", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(3)
+                        .HasColumnType("nvarchar(3)");
+
+                    b.Property<string>("Nom")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<string>("Observation")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
+
+                    b.HasIndex("Nom")
+                        .IsUnique();
+
+                    b.ToTable("App_SecteursActivites");
+                });
+
+            modelBuilder.Entity("Tsi.Template.Domain.Societe", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(3)
+                        .HasColumnType("nvarchar(3)");
+
+                    b.Property<int>("ExpertComptableId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("IdentifiantFiscal")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<string>("Nom")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<string>("Observation")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
+
+                    b.HasIndex("ExpertComptableId");
+
+                    b.HasIndex("IdentifiantFiscal")
+                        .IsUnique();
+
+                    b.ToTable("App_Societes");
                 });
 
             modelBuilder.Entity("Tsi.Template.Core.Entities.PermissionUserRoleMapping", b =>
@@ -488,20 +645,36 @@ namespace Tsi.Template.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Tsi.Template.Domain.Grh.Employee", b =>
+            modelBuilder.Entity("Tsi.Template.Domain.ExpertComptable", b =>
                 {
-                    b.HasOne("Tsi.Template.Domain.Grh.Departement", "Departement")
-                        .WithMany("Employees")
-                        .HasForeignKey("DepartementId")
+                    b.HasOne("Tsi.Template.Domain.Pays", "Pays")
+                        .WithMany("ExpertComptables")
+                        .HasForeignKey("PaysId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Departement");
+                    b.Navigation("Pays");
                 });
 
-            modelBuilder.Entity("Tsi.Template.Domain.Grh.Departement", b =>
+            modelBuilder.Entity("Tsi.Template.Domain.Societe", b =>
                 {
-                    b.Navigation("Employees");
+                    b.HasOne("Tsi.Template.Domain.ExpertComptable", "ExpertComptable")
+                        .WithMany("Societes")
+                        .HasForeignKey("ExpertComptableId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ExpertComptable");
+                });
+
+            modelBuilder.Entity("Tsi.Template.Domain.ExpertComptable", b =>
+                {
+                    b.Navigation("Societes");
+                });
+
+            modelBuilder.Entity("Tsi.Template.Domain.Pays", b =>
+                {
+                    b.Navigation("ExpertComptables");
                 });
 #pragma warning restore 612, 618
         }
