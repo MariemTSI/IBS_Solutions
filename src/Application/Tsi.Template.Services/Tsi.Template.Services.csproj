@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Tsi.Template.Helpers\Tsi.Template.Helpers.csproj" />
+    <ProjectReference Include="..\..\Inftrastructure\Tsi.Template.Infrastructure\Tsi.Template.Infrastructure.csproj" />
+    <ProjectReference Include="..\Tsi.Template.ViewModels\Tsi.Template.ViewModels.csproj" />
+  </ItemGroup>
+
+</Project>
