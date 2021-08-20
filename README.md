@@ -1,5 +1,3 @@
 # Tsi_Template
-
-Hello from nieze.benmansour@gmail.com
-
-I've been invited successfully
+ 
+Project template for all our solutions
