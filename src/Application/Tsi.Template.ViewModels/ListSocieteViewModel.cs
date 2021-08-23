@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Tsi.Template.ViewModels
 {
-    class ListSocieteViewModel
+   public class ListSocieteViewModel
     {
         public int Id { get; set; }
         public string Code { get; set; }
         public string Nom { get; set; }
-        public int NomExpertComptable { get; set; }
+        public string NomExpertComptable { get; set; }
     }
 }
