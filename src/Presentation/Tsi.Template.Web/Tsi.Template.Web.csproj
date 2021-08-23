@@ -20,20 +20,21 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Tsi.Template.CoreServices\Tsi.Template.CoreServices.csproj" />
-    <ProjectReference Include="..\Tsi.Template.Core\Tsi.Template.Core.csproj" />
-    <ProjectReference Include="..\Tsi.Template.Data\Tsi.Template.Data.csproj" />
-    <ProjectReference Include="..\Tsi.Template.Domain\Tsi.Template.Domain.csproj" />
-    <ProjectReference Include="..\Tsi.Template.Framework\Tsi.Template.Framework.csproj" />
-    <ProjectReference Include="..\Tsi.Template.Helpers\Tsi.Template.Helpers.csproj" />
-    <ProjectReference Include="..\Tsi.Template.Services\Tsi.Template.Services.csproj" />
-    <ProjectReference Include="..\Tsi.Template.Validation\Tsi.Template.Validation.csproj" />
-    <ProjectReference Include="..\Tsi.Template.ViewModels\Tsi.Template.ViewModels.csproj" />
+    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Factories\" />
+    <Folder Include="Factories\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Factories\" />
+    <ProjectReference Include="..\..\Application\Tsi.Template.Data\Tsi.Template.Data.csproj" />
+    <ProjectReference Include="..\..\Application\Tsi.Template.Domain\Tsi.Template.Domain.csproj" />
+    <ProjectReference Include="..\..\Application\Tsi.Template.Helpers\Tsi.Template.Helpers.csproj" />
+    <ProjectReference Include="..\..\Application\Tsi.Template.Services\Tsi.Template.Services.csproj" />
+    <ProjectReference Include="..\..\Application\Tsi.Template.Validation\Tsi.Template.Validation.csproj" />
+    <ProjectReference Include="..\..\Application\Tsi.Template.ViewModels\Tsi.Template.ViewModels.csproj" />
+    <ProjectReference Include="..\..\Inftrastructure\Tsi.Template.CoreServices\Tsi.Template.CoreServices.csproj" />
+    <ProjectReference Include="..\..\Inftrastructure\Tsi.Template.Core\Tsi.Template.Core.csproj" />
+    <ProjectReference Include="..\..\Inftrastructure\Tsi.Template.Framework\Tsi.Template.Framework.csproj" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
