@@ -1,0 +1,48 @@
+﻿@using Tsi.Template.ViewModels;
+@model SocieteViewModel
+
+@{ Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Edit</h5>
+        <form asp-controller="Societe" asp-action="Edit" method="post">
+
+            <div class="form-group">
+                @Html.DisplayNameFor(model => model.Code)
+                <input type="text" id="Code" name="Code" class="form-control" value="@Model.Code" />
+
+                <span asp-validation-for="Code" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @Html.DisplayNameFor(model => model.Nom)
+                <input type="text" id="Nom" name="Nom" class="form-control" value="@Model.Nom" />
+
+                <span asp-validation-for="Nom" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @Html.DisplayNameFor(model => model.IdentifiantFiscal)
+                <input type="text" id="IdentifiantFiscal" name="IdentifiantFiscal" class="form-control" value="@Model.IdentifiantFiscal" />
+
+                <span asp-validation-for="IdentifiantFiscal" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @Html.DisplayNameFor(model => model.Observation)
+                <input type="text" id="Observation" name="Observation" class="form-control" value="@Model.Observation" />
+
+                <span asp-validation-for="Observation" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                @Html.DisplayNameFor(model => model.ExpertComptableId)
+                @Html.DropDownListFor(model => model.ExpertComptableId, Model.ExpertComptable, "")
+                <span asp-validation-for="ExpertComptableId" class="text-danger"></span>
+            </div>
+            <div class="form-group text-center">
+                <button type="submit" name="save" class="btn btn-primary col-md-3">
+                    <i class="far fa-save"></i> Save
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

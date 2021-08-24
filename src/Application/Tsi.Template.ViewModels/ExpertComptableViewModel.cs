@@ -7,15 +7,20 @@ using System.Threading.Tasks;
 
 namespace Tsi.Template.ViewModels
 {
-    public class SocieteViewModel
+    public class ExpertComptableViewModel
     {
+
         public int Id { get; set; }
         public string Code { get; set; }
         public string Nom { get; set; }
-        public string IdentifiantFiscal { get; set; }
+        public string Adresse { get; set; }
+        public string ComplementAdresse { get; set; }
+        public string CP { get; set; }
+        public string Ville { get; set; }
         public string Observation { get; set; }
-        public int ExpertComptableId { get; set; }
-        public SelectList ExpertComptable { get; set; }
+        public int PaysId { get; set; }
+
+        public SelectList Pays { get; set; }
 
     }
 }

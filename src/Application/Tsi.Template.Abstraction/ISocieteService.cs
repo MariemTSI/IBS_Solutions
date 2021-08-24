@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tsi.Template.Domain;
+using Tsi.Template.ViewModels;
 
 namespace Tsi.Template.Abstraction
 {
@@ -15,6 +16,6 @@ namespace Tsi.Template.Abstraction
         Task<Societe> GetSocietebyIdAsync(int id);
         Task<Societe> GetSocietetbyIdentifiantFiscalAsync(string identifiantFiscal);
         Task<Societe> GetSocietetbyCodeAsync(string code);
-        Task UpdateSocieteAsync(int id, Societe model);
+        Task UpdateSocieteAsync(SocieteViewModel model);
     }
 }

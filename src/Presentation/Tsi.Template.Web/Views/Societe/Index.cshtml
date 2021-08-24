@@ -1,5 +1,134 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@using Tsi.Template.ViewModels;
+@model IEnumerable<ListSocieteViewModel>
+
+@{ Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="form-horizontal">
+            <div class="cards-group">
+                <div>
+                    <h2>Liste des sociétés</h2>
+                    <div class="icon-search">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Societe" asp-action="Create">
+                            <i class="fas fa-plus-circle"></i>Ajouter
+                        </a>
+                    </div>
+
+                </div>
+
+                <br />
+
+                <div class="card card-default">
+                    <div class="card-body">
+
+                        <table class="table">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Code</th>
+                                    <th scope="col">Nom</th>
+                                    <th scope="col">Expert Comptable</th>
+
+
+                                    <th scope="col" colspan="2">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{ int index = 0;}
+                                @foreach (ListSocieteViewModel item in Model)
+                                {
+                                    index++;
+                                    <tr>
+                                        <th scope="row">@index</th>
+                                        <td>@item.Code</td>
+                                        <td>@item.Nom</td>
+                                        <td>@item.NomExpertComptable</td>
+
+
+                                        <td>
+                                            @* @Html.ActionLink("Delete", "Delete", "Societe", new { id = item.Id }, new { onclick = "return confirm('Are sure wants to delete?');" })*@
+                                            <input type="button" value="Delete" class="btn btn-danger" onclick="deleteConfirm('@item.Id')" />
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink("Edit", "Edit", "Societe", item, null)
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br />
+
+
+
+</section>
+
+<!--bootstra pop up confirmation dialog-->
+<div class="modal fade" id="delete-conformation" tabindex="-1" role="dialog" aria-labelledby="deleteconformation">
+    <div class="modal-dialog" style="width:501px !important;margin:0 auto;">
+        <div class="modal-content">
+            <div class="modal-header" style="background:#d9534f;color:white;">
+                <h4 class="modal-title" id="delete-conformation">
+                    Delete Confirmation
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <span>
+                                Are you sure you want to delete?
+                            </span>
+                            <strong id="deletedValueName">
+                            </strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <input type="submit" class="btn btn-danger" value="Delete" onclick="deleteData()" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+        //this is only display bootstrap modal pop up dialog
+        var deleteConfirm = function (val) {
+            $('#deletedValueName').text(val);
+
+            console.log(val);
+
+
+
+            $('#delete-conformation').modal('show');
+
+        }
+        //call this function after click on confirm delete button
+        var deleteData = function () {
+        $('#divLoading').show();
+            var id = $('#deletedValueName').text();
+
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("Delete", "Societe")',
+                data: {id : id },
+            success: function (result) {
+               $("#delete-conformation").modal('hide');
+            },
+            error: function () {
+                $("#delete-conformation").modal('hide');
+            }
+        });
+       }
+    </script>
 }

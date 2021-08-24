@@ -7,6 +7,7 @@ using Tsi.Template.Abstraction;
 using Tsi.Template.Core.Attributes;
 using Tsi.Template.Domain;
 using Tsi.Template.Infrastructure.Repository;
+using Tsi.Template.ViewModels;
 
 namespace Tsi.Template.Services
 {
@@ -15,9 +16,13 @@ namespace Tsi.Template.Services
     {
         private readonly IRepository<Societe> _societeRepo;
 
-        public SocieteService(IRepository<Societe> societeRepo)
+        private readonly IRepository<ExpertComptable> _expertComptableRepo;
+
+
+        public SocieteService(IRepository<Societe> societeRepo, IRepository<ExpertComptable> expertComptableRepo)
         {
             _societeRepo = societeRepo;
+            _expertComptableRepo = expertComptableRepo;
         }
 
         public async Task<Societe> CreateSocieteAsync(Societe societe)
@@ -32,7 +37,12 @@ namespace Tsi.Template.Services
 
         public async Task<IEnumerable<Societe>> GetAllAsync()
         {
-            return await _societeRepo.GetAllAsync();
+            var result = await _societeRepo.GetAllAsync();
+            foreach( var item in result)
+            {
+                item.ExpertComptable = await _expertComptableRepo.GetByIdAsync(item.ExpertComptableId);
+            }
+            return result;
         }
 
         public async Task<Societe> GetSocietebyIdAsync(int id)
@@ -50,9 +60,23 @@ namespace Tsi.Template.Services
             return await _societeRepo.GetAsync(t => t.IdentifiantFiscal == identifiantFiscal);
         }
 
-        public Task UpdateSocieteAsync(int id, Societe model)
+        public async Task UpdateSocieteAsync(SocieteViewModel model)
         {
-            throw new NotImplementedException();
+            var societe = await GetSocietebyIdAsync(model.Id);
+
+            if(societe is null)
+            {
+                return;
+            }
+
+            societe.Code = model.Code;
+            societe.Nom = model.Nom;
+            societe.IdentifiantFiscal = model.IdentifiantFiscal;
+            societe.Observation = model.Observation;
+
+            societe.ExpertComptableId = model.ExpertComptableId;
+
+            await _societeRepo.UpdateAsync(societe);
         }
     }
 }
