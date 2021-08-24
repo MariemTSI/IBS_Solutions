@@ -35,6 +35,8 @@ namespace Tsi.Template.Data.Configuration
             builder.HasIndex(e => e.Nom).IsUnique();
             builder.HasIndex(e => e.SymboleMonetaire).IsUnique();
 
+          
+
 
         }
     }

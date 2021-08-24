@@ -1,0 +1,48 @@
+﻿@using Tsi.Template.ViewModels;
+@model PaysViewModel
+
+@{ Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">update Pays</h5>
+        <form asp-controller="Pays" asp-action="Edit" method="post">
+
+            <div class="form-group">
+                @Html.DisplayNameFor(model => model.Code)
+                <input type="text" id="Code" name="Code" class="form-control" value="@Model.Code" />
+            </div>
+
+            <div class="form-group">
+                @Html.DisplayNameFor(model => model.Nom)
+                <input type="text" id="Nom" name="Nom" class="form-control" value="@Model.Nom" />
+                <span asp-validation-for="Nom" class="text-danger"></span>
+            </div>
+         
+
+            <div class="form-group">
+                @Html.DisplayNameFor(model => model.SymboleMonetaire)
+                <input type="text" id="SymboleMonetaire" name="SymboleMonetaire" class="form-control" value="@Model.SymboleMonetaire" />
+                <span asp-validation-for="SymboleMonetaire" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                @Html.DisplayNameFor(model => model.NbreDecimales)
+                <input type="text" id="NbreDecimales" name="NbreDecimales" class="form-control" value="@Model.NbreDecimales" />
+                <span asp-validation-for="NbreDecimales" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                @Html.DisplayNameFor(model => model.Observation)
+                <input type="text" id="Observation" name="Observation" class="form-control" value="@Model.Observation" />
+                <span asp-validation-for="Observation" class="text-danger"></span>
+            </div>
+
+            <div class="form-group text-center">
+                <button type="submit" name="save" class="btn btn-primary col-md-3">
+                    <i class="far fa-save"></i> Save
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
