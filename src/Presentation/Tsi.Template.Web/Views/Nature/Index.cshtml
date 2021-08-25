@@ -1,0 +1,71 @@
+﻿@using Tsi.Template.ViewModels;
+@using Tsi.Template.Helpers;
+@model IEnumerable<NatureViewModel>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="form-horizontal">
+            <div class="cards-group">
+                <div>
+                    <h2>Natures List</h2>
+                    <div class="icon-search">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Nature" asp-action="Create">
+                            <i class="fas fa-plus-circle"></i>Create
+                        </a>
+                    </div>
+
+                </div>
+
+                <br />
+
+                <div class="card card-default">
+                    <div class="card-body">
+
+                        <table class="table">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Code</th>
+                                    <th scope="col">Nom</th>
+                                    <th scope="col">Code Sur Declaration</th>
+                                    <th scope="col">Observation</th>
+
+                                    <th scope="col" colspan="2">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{ int index = 0;}
+                                @foreach (NatureViewModel item in Model)
+                                {
+                                    index++;
+                                <tr>
+                                    <th scope="row">@index</th>
+                                    <td>@item.Code</td>
+                                    <td>@item.Nom</td>
+                                    <td>@item.CodeSurDeclaration</td>
+                                    <td>@item.Observation</td>
+                                    <td>
+                                        @Html.ActionLink("Delete", "Delete", "Nature", new { id = item.Id }, null)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Edit", "Edit", "Nature", item, null)
+                                    </td>
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br />
+
+
+
+</section>
