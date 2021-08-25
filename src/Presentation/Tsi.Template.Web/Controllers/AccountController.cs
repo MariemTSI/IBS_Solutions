@@ -3,9 +3,8 @@ using System.Threading.Tasks;
 using Tsi.Template.Core;
 using Tsi.Template.Core.Configuration;
 using Tsi.Template.Core.Entities;
-using Tsi.Template.Core.Models;
-using Tsi.Template.Framework.Factories.User;
-
+using Tsi.Template.Core.Models; 
+using Tsi.Template.Web.Factories.Common;
 
 namespace Tsi.Template.Web.Controllers
 {
