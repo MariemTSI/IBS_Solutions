@@ -1,17 +1,16 @@
 ﻿@using Tsi.Template.ViewModels;
-@model IEnumerable<ListSocieteViewModel>
+@model IEnumerable<ListSecteurActivitesViewModel>
 
 @{ Layout = "~/Views/Shared/_Layout.cshtml"; }
-
 
 <section class="content">
     <div class="container-fluid">
         <div class="form-horizontal">
             <div class="cards-group">
                 <div>
-                    <h2>Liste des sociétés</h2>
+                    <h2>Liste des secteurs d'activités</h2>
                     <div class="icon-search">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Societe" asp-action="Create">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="SecteurActivites" asp-action="Create">
                             <i class="fas fa-plus-circle"></i>Ajouter
                         </a>
                     </div>
@@ -29,7 +28,7 @@
                                     <th scope="col">#</th>
                                     <th scope="col">Code</th>
                                     <th scope="col">Nom</th>
-                                    <th scope="col">Expert Comptable</th>
+
 
 
                                     <th scope="col" colspan="2">Action</th>
@@ -37,14 +36,14 @@
                             </thead>
                             <tbody>
                                 @{ int index = 0;}
-                                @foreach (ListSocieteViewModel item in Model)
+                                @foreach (ListSecteurActivitesViewModel item in Model)
                                 {
                                     index++;
                                     <tr>
                                         <th scope="row">@index</th>
                                         <td>@item.Code</td>
                                         <td>@item.Nom</td>
-                                        <td>@item.NomExpertComptable</td>
+
 
 
                                         <td>
@@ -52,7 +51,7 @@
                                             <input type="button" value="Delete" class="btn btn-danger" onclick="deleteConfirm('@item.Id')" />
                                         </td>
                                         <td>
-                                            @Html.ActionLink("Edit", "Edit", "Societe", item, null)
+                                            @Html.ActionLink("Edit", "Edit", "SecteurActivites", item, null)
                                         </td>
                                     </tr>
                                 }
@@ -63,11 +62,6 @@
             </div>
         </div>
     </div>
-
-    <br />
-
-
-
 </section>
 
 <!--bootstra pop up confirmation dialog-->
@@ -120,7 +114,7 @@
 
         $.ajax({
             type: "GET",
-            url: '@Url.Action("Delete", "Societe")',
+            url: '@Url.Action("Delete", "SecteurActivites")',
                 data: {id : id },
             success: function (result) {
                 $("#delete-conformation").modal('hide');

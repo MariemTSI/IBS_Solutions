@@ -1,17 +1,16 @@
 ﻿@using Tsi.Template.ViewModels;
-@model IEnumerable<ListSocieteViewModel>
+@model IEnumerable<ListExpertComptableViewModel>
 
 @{ Layout = "~/Views/Shared/_Layout.cshtml"; }
-
 
 <section class="content">
     <div class="container-fluid">
         <div class="form-horizontal">
             <div class="cards-group">
                 <div>
-                    <h2>Liste des sociétés</h2>
+                    <h2>Liste des Experts Comptables</h2>
                     <div class="icon-search">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Societe" asp-action="Create">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="ExpertComptable" asp-action="Create">
                             <i class="fas fa-plus-circle"></i>Ajouter
                         </a>
                     </div>
@@ -29,30 +28,31 @@
                                     <th scope="col">#</th>
                                     <th scope="col">Code</th>
                                     <th scope="col">Nom</th>
-                                    <th scope="col">Expert Comptable</th>
-
+                                    <th scope="col">Pays</th>
+                                    <th scope="col">Adresse</th>
 
                                     <th scope="col" colspan="2">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @{ int index = 0;}
-                                @foreach (ListSocieteViewModel item in Model)
+                                @foreach (ListExpertComptableViewModel item in Model)
                                 {
                                     index++;
                                     <tr>
                                         <th scope="row">@index</th>
                                         <td>@item.Code</td>
                                         <td>@item.Nom</td>
-                                        <td>@item.NomExpertComptable</td>
+                                        <td>@item.Pays</td>
+                                        <td>@item.Adresse</td>
 
 
                                         <td>
-                                            @* @Html.ActionLink("Delete", "Delete", "Societe", new { id = item.Id }, new { onclick = "return confirm('Are sure wants to delete?');" })*@
+                                            @*@Html.ActionLink("Delete", "Delete", "ExpertComptable", new { id = item.Id }, new { onclick = "return confirm('Are sure wants to delete?');" })*@
                                             <input type="button" value="Delete" class="btn btn-danger" onclick="deleteConfirm('@item.Id')" />
                                         </td>
                                         <td>
-                                            @Html.ActionLink("Edit", "Edit", "Societe", item, null)
+                                            @Html.ActionLink("Edit", "Edit", "ExpertComptable", item, null)
                                         </td>
                                     </tr>
                                 }
@@ -64,44 +64,39 @@
         </div>
     </div>
 
-    <br />
 
 
-
-</section>
-
-<!--bootstra pop up confirmation dialog-->
-<div class="modal fade" id="delete-conformation" tabindex="-1" role="dialog" aria-labelledby="deleteconformation">
-    <div class="modal-dialog" style="width:501px !important;margin:0 auto;">
-        <div class="modal-content">
-            <div class="modal-header" style="background:#d9534f;color:white;">
-                <h4 class="modal-title" id="delete-conformation">
-                    Delete Confirmation
-                </h4>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="form-group">
-                        <div class="col-sm-12">
-                            <span>
-                                Are you sure you want to delete?
-                            </span>
-                            <strong id="deletedValueName">
-                            </strong>
+    <div class="modal fade" id="delete-conformation" tabindex="-1" role="dialog" aria-labelledby="deleteconformation">
+        <div class="modal-dialog" style="width:501px !important;margin:0 auto;">
+            <div class="modal-content">
+                <div class="modal-header" style="background:#d9534f;color:white;">
+                    <h4 class="modal-title" id="delete-conformation">
+                        Delete Confirmation
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <span>
+                                    Are you sure you want to delete?
+                                </span>
+                                <strong id="deletedValueName">
+                                </strong>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <input type="submit" class="btn btn-danger" value="Delete" onclick="deleteData()" />
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <input type="submit" class="btn btn-danger" value="Delete" onclick="deleteData()" />
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-@section Scripts{
-    <script type="text/javascript">
+    @section Scripts{
+        <script type="text/javascript">
         //this is only display bootstrap modal pop up dialog
         var deleteConfirm = function (val) {
             $('#deletedValueName').text(val);
@@ -120,7 +115,7 @@
 
         $.ajax({
             type: "GET",
-            url: '@Url.Action("Delete", "Societe")',
+            url: '@Url.Action("Delete", "ExpertComptable")',
                 data: {id : id },
             success: function (result) {
                 $("#delete-conformation").modal('hide');
@@ -131,5 +126,5 @@
             }
         });
        }
-    </script>
-}
+        </script>
+    }

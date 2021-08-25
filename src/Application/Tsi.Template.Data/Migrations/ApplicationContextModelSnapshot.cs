@@ -482,9 +482,6 @@ namespace Tsi.Template.Data.Migrations
                         .HasMaxLength(3)
                         .HasColumnType("nvarchar(3)");
 
-                    b.Property<int>("ExpertComptableId")
-                        .HasColumnType("int");
-
                     b.Property<int>("NbreDecimales")
                         .HasColumnType("int");
 

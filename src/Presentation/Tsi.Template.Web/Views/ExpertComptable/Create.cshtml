@@ -1,0 +1,63 @@
+﻿@using Tsi.Template.ViewModels;
+@model ExpertComptableViewModel
+
+@{ Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Ajout </h5>
+        <br /><br />
+        <form asp-controller="ExpertComptable" asp-action="Create" method="post">
+
+            <div class="form-group">
+                @Html.DisplayNameFor(model => model.Code)
+                <input type="text" id="Code" name="Code" class="form-control" value="@Model.Code" />
+                <span asp-validation-for="Code" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @Html.DisplayNameFor(model => model.Nom)
+                <input type="text" id="Nom" name="Nom" class="form-control" value="@Model.Nom" />
+                <span asp-validation-for="Nom" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                @Html.DisplayNameFor(model => model.Adresse)
+                <input type="text" id="Adresse" name="Adresse" class="form-control" value="@Model.Adresse" />
+                <span asp-validation-for="Adresse" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                @Html.DisplayNameFor(model => model.Ville)
+                <input type="text" id="Ville" name="Ville" class="form-control" value="@Model.Ville" />
+                <span asp-validation-for="Ville" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                @Html.DisplayNameFor(model => model.CP)
+                <input type="text" id="CP" name="CP" class="form-control" value="@Model.CP" />
+                <span asp-validation-for="CP" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                @Html.DisplayNameFor(model => model.Observation)
+                <input type="text" id="Observation" name="Observation" class="form-control" value="@Model.Observation" />
+                <span asp-validation-for="Observation" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                @Html.DisplayNameFor(model => model.PaysId)
+                @Html.DropDownListFor(model => model.PaysId, Model.Pays, "Selectionner", new { @id = "simpleSelect2" })
+                <span asp-validation-for="PaysId" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group text-center">
+                <button type="submit" name="save" class="btn btn-primary col-md-3">
+                    <i class="far fa-save"></i> Save
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+

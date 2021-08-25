@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tsi.Template.Domain;
+using Tsi.Template.ViewModels;
 
 namespace Tsi.Template.Abstraction
 {
@@ -14,7 +15,9 @@ namespace Tsi.Template.Abstraction
         Task<IEnumerable<ExpertComptable>> GetAllAsync();
         Task<ExpertComptable> GetExpertComptablebyIdAsync(int id);
         Task<ExpertComptable> GetExpertComptabletbyCodeAsync(string code);
-        Task UpdateExpertComptableAsync(int id, ExpertComptable model);
+
+        Task<ExpertComptable> GetExpertComptabletbyNomAsync(string nom);
+        Task UpdateExpertComptableAsync (ExpertComptableViewModel model);
        
     }
 }

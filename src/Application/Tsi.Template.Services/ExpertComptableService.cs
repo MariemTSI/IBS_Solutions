@@ -7,6 +7,7 @@ using Tsi.Template.Abstraction;
 using Tsi.Template.Core.Attributes;
 using Tsi.Template.Domain;
 using Tsi.Template.Infrastructure.Repository;
+using Tsi.Template.ViewModels;
 
 namespace Tsi.Template.Services
 {
@@ -14,10 +15,12 @@ namespace Tsi.Template.Services
     public class ExpertComptableService : IExpertComptableService
     {
         private readonly IRepository<ExpertComptable> _expertComptableRepo;
+        private readonly IRepository<Pays> _paysRepo;
 
-        public ExpertComptableService(IRepository<ExpertComptable> expertComptableRepo)
+        public ExpertComptableService(IRepository<ExpertComptable> expertComptableRepo, IRepository<Pays> paysRepo)
         {
             _expertComptableRepo = expertComptableRepo;
+            _paysRepo = paysRepo;
         }
 
         public async Task<ExpertComptable> CreateExpertComptableAsync(ExpertComptable expertComptable)
@@ -32,7 +35,12 @@ namespace Tsi.Template.Services
 
         public async Task<IEnumerable<ExpertComptable>> GetAllAsync()
         {
-            return await _expertComptableRepo.GetAllAsync();
+            var resultat = await _expertComptableRepo.GetAllAsync();
+            foreach (var item in resultat)
+            {
+                item.Pays = await _paysRepo.GetByIdAsync(item.PaysId);
+            }
+            return resultat;
         }
 
       
@@ -46,9 +54,14 @@ namespace Tsi.Template.Services
             return await _expertComptableRepo.GetAsync(t => t.Code == code);
         }
 
-        public async Task UpdateExpertComptableAsync(int id, ExpertComptable model)
+        public async Task<ExpertComptable> GetExpertComptabletbyNomAsync(string nom)
         {
-            var expertComptable = await GetExpertComptablebyIdAsync(id);
+            return await _expertComptableRepo.GetAsync(t => t.Nom == nom);
+        }
+
+        public async Task UpdateExpertComptableAsync(ExpertComptableViewModel model)
+        {
+            var expertComptable = await GetExpertComptablebyIdAsync(model.Id);
 
             if(expertComptable is null)
             {
@@ -59,7 +72,6 @@ namespace Tsi.Template.Services
             expertComptable.Nom = model.Nom;
             expertComptable.Observation = model.Observation;
             expertComptable.PaysId = model.PaysId;
-            expertComptable.Societes = model.Societes;
             expertComptable.Ville = model.Ville;
             expertComptable.Adresse = model.Adresse;
             expertComptable.ComplementAdresse = model.ComplementAdresse;
