@@ -12,5 +12,7 @@ namespace Tsi.Template.Domain
         public string Code { get; set; }
         public string Nom { get; set; }
         public string Observation { get; set; }
+
+        public ICollection<Tiers> Tierss { get; set; }
     }
 }

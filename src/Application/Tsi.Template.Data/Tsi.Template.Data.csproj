@@ -8,8 +8,4 @@
     <ProjectReference Include="..\..\Inftrastructure\Tsi.Template.Infrastructure\Tsi.Template.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Configuration\" />
-  </ItemGroup>
-
 </Project>

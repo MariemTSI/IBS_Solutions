@@ -15,5 +15,6 @@ namespace Tsi.Template.Domain
         public int NbreDecimales { get; set; }
         public string Observation { get; set; }
         public ICollection<ExpertComptable> ExpertComptables { get; set; }
+        public ICollection<Tiers> Tierss { get; set; }
     }
 }

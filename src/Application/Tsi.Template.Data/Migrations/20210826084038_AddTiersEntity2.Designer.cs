@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tsi.Template.Data;
 
 namespace Tsi.Template.Data.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20210826084038_AddTiersEntity2")]
+    partial class AddTiersEntity2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -338,46 +340,6 @@ namespace Tsi.Template.Data.Migrations
                     b.HasIndex("UserRoleId");
 
                     b.ToTable("Common_UserRoleMappings");
-                });
-
-            modelBuilder.Entity("Tsi.Template.Domain.ComptesComptables", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Intitule")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
-
-                    b.Property<string>("NatureCompteComptable")
-                        .IsRequired()
-                        .HasMaxLength(2)
-                        .HasColumnType("nvarchar(2)");
-
-                    b.Property<string>("Numero")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
-                    b.Property<string>("Observation")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<int>("SocieteId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SocieteId", "Intitule")
-                        .IsUnique();
-
-                    b.HasIndex("SocieteId", "Numero")
-                        .IsUnique();
-
-                    b.ToTable("App_ComptesComptables");
                 });
 
             modelBuilder.Entity("Tsi.Template.Domain.ExpertComptable", b =>
@@ -749,17 +711,6 @@ namespace Tsi.Template.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Tsi.Template.Domain.ComptesComptables", b =>
-                {
-                    b.HasOne("Tsi.Template.Domain.Societe", "Societe")
-                        .WithMany("ComptesComptabless")
-                        .HasForeignKey("SocieteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Societe");
-                });
-
             modelBuilder.Entity("Tsi.Template.Domain.ExpertComptable", b =>
                 {
                     b.HasOne("Tsi.Template.Domain.Pays", "Pays")
@@ -822,11 +773,6 @@ namespace Tsi.Template.Data.Migrations
             modelBuilder.Entity("Tsi.Template.Domain.SecteursActivites", b =>
                 {
                     b.Navigation("Tierss");
-                });
-
-            modelBuilder.Entity("Tsi.Template.Domain.Societe", b =>
-                {
-                    b.Navigation("ComptesComptabless");
                 });
 #pragma warning restore 612, 618
         }

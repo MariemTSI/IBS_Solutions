@@ -15,5 +15,7 @@ namespace Tsi.Template.Domain
         public string Observation { get; set; }
         public int ExpertComptableId { get; set; }
         public ExpertComptable ExpertComptable { get; set; }
+
+        public ICollection<ComptesComptables> ComptesComptabless { get; set; }
     }
 }
